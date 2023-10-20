@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model games {
+  id                               Int       @id @default(autoincrement())
+  date                             DateTime? @db.DateTime(0)
+  idPlayer1                        Int
+  idPlayer2                        Int
+  player1Score                     Int
+  player2Score                     Int
+  players_games_idPlayer1Toplayers players   @relation("games_idPlayer1Toplayers", fields: [idPlayer1], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "games_ibfk_1")
+  players_games_idPlayer2Toplayers players   @relation("games_idPlayer2Toplayers", fields: [idPlayer2], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "games_ibfk_2")
+
+  @@index([idPlayer1], map: "idPlayer1")
+  @@index([idPlayer2], map: "idPlayer2")
+}
+
+model players {
+  id                             Int     @id @default(autoincrement())
+  name                           String? @db.VarChar(255)
+  games_games_idPlayer1Toplayers games[] @relation("games_idPlayer1Toplayers")
+  games_games_idPlayer2Toplayers games[] @relation("games_idPlayer2Toplayers")
+}
