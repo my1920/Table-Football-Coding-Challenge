@@ -27,7 +27,75 @@ const gameSchema = Joi.object({
 
 
 
-// POST /games
+/**
+ * @openapi
+ * /games:
+ *   post:
+ *     tags:
+ *       - Games
+ *     description: Create a new game
+ *     requestBody:
+ *       description: Game object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - idPlayer1
+ *               - idPlayer2
+ *             properties:
+ *               idPlayer1:
+ *                 type: integer
+ *               idPlayer2:
+ *                 type: integer
+ *               datetime:
+ *                 type: string
+ *                 format: date-time
+ *               player1score:
+ *                 type: integer
+ *               player2score:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Successfully created game
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 date:
+ *                   type: string
+ *                   format: date-time
+ *                 idPlayer1:
+ *                   type: integer
+ *                 idPlayer2:
+ *                   type: integer
+ *                 player1Score:
+ *                   type: integer
+ *                 player2Score:
+ *                   type: integer
+ *       400:
+ *         description: Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 router.post('/', async (req, res) => {
 
 
@@ -80,7 +148,84 @@ const updateGameSchema = Joi.object({
 });
 
 
-// PUT /games/:gameid
+/**
+ * @openapi
+ * /games/{gameid}:
+ *   put:
+ *     tags:
+ *       - Games
+ *     description: Update game score
+ *     parameters:
+ *       - name: gameid
+ *         description: Game's id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       description: Player ID and score to update
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - playerid
+ *               - score
+ *             properties:
+ *               playerid:
+ *                 type: integer
+ *               score:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Successfully updated game score
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 date:
+ *                   type: string
+ *                   format: date-time
+ *                 idPlayer1:
+ *                   type: integer
+ *                 idPlayer2:
+ *                   type: integer
+ *                 player1Score:
+ *                   type: integer
+ *                 player2Score:
+ *                   type: integer
+ *       400:
+ *         description: Invalid input
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       404:
+ *         description: Game not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 router.put('/:gameid', async (req, res) => {
     const gameId = parseInt(req.params.gameid);
     if (isNaN(gameId)) {
