@@ -1,8 +1,7 @@
 const express = require('express');
-const { PrismaClient } = require('@prisma/client');
 
 const Joi = require('joi');
-const prisma = new PrismaClient();
+const prisma = require('../client');
 
 const router = express.Router();
 
@@ -258,6 +257,7 @@ router.put('/:gameid', async (req, res) => {
         });
         res.json(updatedGame);
     } catch (err) {
+        console.error(err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

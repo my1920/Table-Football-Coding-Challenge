@@ -15,6 +15,8 @@ This project is a coding challenge whose instructions are detailed in the file :
 - - swagger
 - - Mocha
 - - Chai
+- - Supertest
+- - Sinon
 
 - MySQL (v8.1.0)
 
@@ -38,6 +40,10 @@ This project is a coding challenge whose instructions are detailed in the file :
 4. Update your DB Schema : `npx prisma db push`
 5. Connect to your database and add some examples in the players table
 6. Launch the server : `npm start`
+
+### Unit testing
+
+1. Launch the unit testing : `npm test`
 
 ## Frontend
 

@@ -1,8 +1,8 @@
 const express = require('express');
-const { PrismaClient } = require('@prisma/client');
 
 const Joi = require('joi');
-const prisma = new PrismaClient();
+const prisma = require('../client');
+
 
 const router = express.Router();
 
@@ -37,7 +37,6 @@ const router = express.Router();
  *                 error:
  *                   type: string
  */
-
 router.get('/', async (req, res) => {
     try {
         const players = await prisma.players.findMany({
