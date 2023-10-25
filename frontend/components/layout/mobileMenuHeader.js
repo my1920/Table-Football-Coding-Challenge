@@ -1,5 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import Logo from './logo'
+import Logo from './Logo'
 
 export default function MobileMenuHeader({ setMobileMenuOpen }) {
     return (
