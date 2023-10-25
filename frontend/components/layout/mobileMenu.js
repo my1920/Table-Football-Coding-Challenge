@@ -1,4 +1,4 @@
-import MobileMenuHeader from './mobileMenuHeader';
+import MobileMenuHeader from './MobileMenuHeader';
 import { usePathname } from 'next/navigation'
 import { Dialog } from '@headlessui/react'
 import  Link  from 'next/link'

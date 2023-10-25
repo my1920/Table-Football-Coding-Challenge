@@ -1,9 +1,9 @@
 'use client'
 import { useState } from 'react'
-import Logo from './logo'
-import NavigationBar from './navigationBar'
-import MobileMenuButton from './mobileMenuButton'
-import MobileMenu from './mobileMenu'
+import Logo from './Logo'
+import NavigationBar from './NavigationBar'
+import MobileMenuButton from './MobileMenuButton'
+import MobileMenu from './MobileMenu'
 
 
 export default function Header() {

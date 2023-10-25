@@ -1,18 +1,19 @@
 import Image from 'next/image'
+import  Link  from 'next/link'
 
 export default function Logo() {
     return (
-      <a href="#" className="-m-1.5 p-1.5">
+      <Link href="/" className="-m-1.5 p-1.5">
         <span className="sr-only">Aurélien Santi</span>
-        <Image //todo: add logo
-            src="/vercel.svg"
-            alt="Vercel Logo"
+        <Image
+            src="/bbccv0.4.svg"
+            alt="Babyfoot Coding Challenge Logo"
             className="dark:invert"
-            width={100}
-            height={24}
+            width={150}
+            height={36}
             priority
           />
-      </a>
+      </Link>
     );
   }
   
