@@ -9,8 +9,8 @@ export default function Logo() {
             src="/bbccv0.4.svg"
             alt="Babyfoot Coding Challenge Logo"
             className="dark:invert"
-            width={150}
-            height={36}
+            width={160}
+            height={40}
             priority
           />
       </Link>

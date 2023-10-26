@@ -5,12 +5,25 @@ const gamesRouter = require('./routes/games');
 const playersRouter = require('./routes/players');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
 
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
+
+const allowedOrigins = ['http://localhost:3001']; //todo : to put in README.md
+
+app.use(cors({
+    origin: function(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Origin not allowed by CORS'));
+        }
+    }
+}));
 
 const swaggerOptions = {
     definition: {
