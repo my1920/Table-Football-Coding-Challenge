@@ -10,6 +10,7 @@ This project is a coding challenge whose instructions are detailed in the file :
 - - Express
 - - prisma
 - - helmet
+- - cors
 - - joi
 - - dotenv
 - - swagger

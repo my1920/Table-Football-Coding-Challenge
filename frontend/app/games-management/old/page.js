@@ -1,6 +1,6 @@
 import  Link  from 'next/link'
 import { ArrowLeftCircleIcon } from '@heroicons/react/24/outline'
-import OldGameManagementForm from '@/components/form/oldGameManagementForm'
+import OldGameManagementForm from '@/app/_components/forms/OldGameManagementForm'
 
 export default function OldGamesManagement() {
   return (

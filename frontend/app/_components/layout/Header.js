@@ -14,7 +14,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-white sticky top-0">
+    <header className="bg-white sticky top-0 z-10">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <Logo />
         <MobileMenuButton setMobileMenuOpen={setMobileMenuOpen} />
