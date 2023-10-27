@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { PlusCircleIcon, MinusCircleIcon } from '@heroicons/react/24/outline';
 
-export default function ScoreCounter({ onScoreChange, initialScore, label }) {
-    const [score, setScore] = useState(initialScore);
+export default function ScoreCounter({ onScoreChange, label, reset }) {
+    const [score, setScore] = useState(0);
+
+    useEffect(() => {
+        if (reset) {
+            setScore(0);
+        }
+    }, [reset]);
 
     return (
         <div className="mt-4">
-            <label className="block text-sm font-medium leading-6 text-gray-900">{label}</label>
+            <h4 className="block text-sm font-medium leading-6 text-gray-900">{label}</h4>
             <div className="flex flex-row justify-center gap-4 w-full mt-2">
                 <button onClick={() => {
                     if (onScoreChange) {
