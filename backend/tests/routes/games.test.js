@@ -77,14 +77,6 @@ describe('POST /games', () => {
 
         prismaClient.players.findUnique = sinon.stub().rejects(new Error('DB error'));
 
-        /*const findUniqueStub = sinon.stub();
-        prismaClient.players.findUnique = findUniqueStub;
-
-        findUniqueStub.onCall(0).resolves({ id: reqData.idPlayer1 });
-        findUniqueStub.onCall(1).resolves({ id: reqData.idPlayer2 });
-
-        prismaClient.games.create = sinon.stub().rejects(new Error('DB error'));*/
-
         const res = await request(app).post('/games').send(reqData);
 
         expect(res.status).to.equal(500);

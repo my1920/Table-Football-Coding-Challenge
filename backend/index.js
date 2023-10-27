@@ -1,13 +1,11 @@
 const express = require('express');
 const helmet = require('helmet');
-const dotenv = require('dotenv');
 const gamesRouter = require('./routes/games');
 const playersRouter = require('./routes/players');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const cors = require('cors');
 
-dotenv.config();
 
 const app = express();
 
