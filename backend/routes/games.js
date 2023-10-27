@@ -9,7 +9,13 @@ const router = express.Router();
 
 const gameSchema = Joi.object({
     idPlayer1: Joi.number().integer().required(),
-    idPlayer2: Joi.number().integer().required(),
+    idPlayer2: Joi.number().integer().required()
+        .custom((value, helpers) => {
+            if (value === helpers.state.ancestors[0].idPlayer1) {
+                return helpers.message('You cannot play against yourself');
+            }
+            return value;
+        }, 'idPlayer2 Validation'),
     datetime: Joi.date().iso().optional(),
     player1score: Joi.when('datetime', {
         is: Joi.exist(),
@@ -101,6 +107,27 @@ router.post('/', async (req, res) => {
     const { error, value } = gameSchema.validate(req.body);
     if (error) {
         return res.status(400).json({ error: error.details[0].message });
+    }
+
+    try {
+        const player1Exists = await prisma.players.findUnique({
+            where: { id: value.idPlayer1 }
+        });
+        
+        const player2Exists = await prisma.players.findUnique({
+            where: { id: value.idPlayer2 }
+        });
+
+        if (!player1Exists) {
+            return res.status(400).json({ error: `Player with Id ${value.idPlayer1} does not exist.` });
+        }
+        
+        if (!player2Exists) {
+            return res.status(400).json({ error: `Player with Id ${value.idPlayer2} does not exist.` });
+        }
+    } catch (err) {
+        console.error("Error checking player existence:", err);
+        return res.status(500).json({ error: 'Internal server error' });
     }
 
     if (value.datetime !== undefined) {
