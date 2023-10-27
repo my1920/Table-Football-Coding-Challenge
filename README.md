@@ -120,3 +120,4 @@ Frontend:
 
 Frontend & Backend :
 - It could be interesting to add integration tests and end-to-end tests with Cypress, for example.
+- I've added the database schema and the UX/UI I made at the start of the project to the "working files" folder. I created these different files to help me define the project structure, define the API routes, define the database, etc...
