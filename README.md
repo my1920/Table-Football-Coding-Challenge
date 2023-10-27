@@ -108,8 +108,13 @@ Backend: :
 - HTTPS? It's important to protect discussions with the API by providing https. In our case, this API will never be in real production, and managing a certificate would make the API configuration more cumbersome.
 - What about equalization? At present, they provide us with dirty data for the win / loss / ratio etc. sections.
 - In the last minutes, I deleted the dotenv module that lets us load .env files into nodeJs. I deleted it because we don't actually use it, Primsa doesn't need it to take the "DATABASE_URL" key. Usually, we need it at least to load the API key.
+- It might be worth adding eslint to the backend to keep the code away from potential problems, syntax errors and to ensure that the code respects certain coding conventions.
 
 Frontend: :
 - Because all the instructions are in English, I've concluded that all users who use this application will speak English. But in other cases, it might be interesting to add an internationalization system.
 - There's no pagination system in the table, so for a few results it's no big deal, but for a large number of players and games, it would speed up the loading of data in frontend and backend .
 - I've made it responsive.
+- - It might be interesting to add unit tests to the front-end as well. I haven't added them for timing reasons.
+
+Frontend & Backend :
+- It could be interesting to add integration tests and end-to-end tests with Cypress, for example.
