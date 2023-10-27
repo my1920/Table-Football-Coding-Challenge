@@ -16,6 +16,12 @@ describe('POST /games', () => {
         const reqData = { idPlayer1: 1, idPlayer2: 2 };
         const mockData = { ...reqData, id: 10, date: new Date().toISOString(), player1Score: 0, player2Score: 0 };
 
+        const findUniqueStub = sinon.stub();
+        prismaClient.players.findUnique = findUniqueStub;
+
+        findUniqueStub.onCall(0).resolves({ id: reqData.idPlayer1 });
+        findUniqueStub.onCall(1).resolves({ id: reqData.idPlayer2 });
+
         prismaClient.games.create = sinon.stub().resolves(mockData);
 
         const res = await request(app).post('/games').send(reqData);
@@ -28,12 +34,33 @@ describe('POST /games', () => {
         const reqData = { idPlayer1: 1, idPlayer2: 2, datetime: new Date().toISOString(), player1score: 10, player2score: 5 };
         const mockData = { ...reqData, id: 10, date: new Date(reqData.datetime).toISOString() };
 
+        const findUniqueStub = sinon.stub();
+        prismaClient.players.findUnique = findUniqueStub;
+
+        findUniqueStub.onCall(0).resolves({ id: reqData.idPlayer1 });
+        findUniqueStub.onCall(1).resolves({ id: reqData.idPlayer2 });
+
         prismaClient.games.create = sinon.stub().resolves(mockData);
 
         const res = await request(app).post('/games').send(reqData);
 
         expect(res.status).to.equal(200);
         expect(res.body).to.deep.equal(mockData);
+    });
+
+    it('should handle same user id error', async () => {
+        const reqData = { idPlayer1: 1, idPlayer2: 1, datetime: new Date().toISOString(), player1score: 10, player2score: 5 };
+        
+        const findUniqueStub = sinon.stub();
+        prismaClient.players.findUnique = findUniqueStub;
+
+        findUniqueStub.onCall(0).resolves({ id: reqData.idPlayer1 });
+        findUniqueStub.onCall(1).resolves({ id: reqData.idPlayer2 });
+
+        const res = await request(app).post('/games').send(reqData);
+
+        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('error');
     });
 
     it('should handle validation errors', async () => {
@@ -48,7 +75,15 @@ describe('POST /games', () => {
     it('should handle database errors', async () => {
         const reqData = { idPlayer1: 1, idPlayer2: 2 };
 
-        prismaClient.games.create = sinon.stub().rejects(new Error('DB error'));
+        prismaClient.players.findUnique = sinon.stub().rejects(new Error('DB error'));
+
+        /*const findUniqueStub = sinon.stub();
+        prismaClient.players.findUnique = findUniqueStub;
+
+        findUniqueStub.onCall(0).resolves({ id: reqData.idPlayer1 });
+        findUniqueStub.onCall(1).resolves({ id: reqData.idPlayer2 });
+
+        prismaClient.games.create = sinon.stub().rejects(new Error('DB error'));*/
 
         const res = await request(app).post('/games').send(reqData);
 
