@@ -67,7 +67,7 @@ This project is a coding challenge whose instructions are detailed in the file :
 ## How to run this project
 
 
-1. First, clone the project : git clone https://github...
+1. First, clone the project : git clone https://github.com/my1920/Table-Football-Coding-Challenge
 2. Configure a MySQL database
 
 
@@ -103,7 +103,7 @@ This project is a coding challenge whose instructions are detailed in the file :
 
 ## Reflections, Thoughts
 
-Backend: :
+Backend:
 - Logging ? There is no logging in the API, in a production environment it would be interesting to add a logging system.
 - Authentication ? There is actually no authentication system, so anyone can create new games in the API without logging in.
 - API key? It's customary for an API to use a key to protect access to it. This is the basis of security. But in this case, I've chosen not to manage one. For the reasons below, access to the API is not encrypted (http), so it could be easy for a "man in the middle" to grab this key and use it for personal purposes. In addition, if an API key is provided, it will be important to add a frontend(server-side) middleware to process requests and send them to the backend with the API key added. This will add a bit of work, as each request will be made twice.
@@ -112,11 +112,11 @@ Backend: :
 - In the last minutes, I deleted the dotenv module that lets us load .env files into nodeJs. I deleted it because we don't actually use it, Primsa doesn't need it to take the "DATABASE_URL" key. Usually, we need it at least to load the API key.
 - It might be worth adding eslint to the backend to keep the code away from potential problems, syntax errors and to ensure that the code respects certain coding conventions.
 
-Frontend: :
+Frontend:
 - Because all the instructions are in English, I've concluded that all users who use this application will speak English. But in other cases, it might be interesting to add an internationalization system.
 - There's no pagination system in the table, so for a few results it's no big deal, but for a large number of players and games, it would speed up the loading of data in frontend and backend .
 - I've made it responsive.
-- - It might be interesting to add unit tests to the front-end as well. I haven't added them for timing reasons.
+- It might be interesting to add unit tests to the front-end as well. I haven't added them for timing reasons.
 
 Frontend & Backend :
 - It could be interesting to add integration tests and end-to-end tests with Cypress, for example.
