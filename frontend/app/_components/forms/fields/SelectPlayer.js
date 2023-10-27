@@ -2,29 +2,32 @@ import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { toast } from 'react-toastify';
 
 export default function SelectPlayer({ onPlayerChange, label }) {
     const [data, setData] = useState([{ id: 0, name: 'Retrieving data' }]);
     const [selected, setSelected] = useState(data[0])
 
+    /* eslint-disable */
     useEffect(() => {
         axios.get("http://localhost:3000/players")
         .then((response) => {
             setData(response.data);
             setSelected(response.data[0]);
-            onPlayerChange(response.data[0].id);
+            onPlayerChange(response.data[0]);
         })
         .catch((error) => {
             console.error('Error fetching data:', error);
-            alert("Error fetching data : " + error.message); //todo: add a toaster
+            toast.error("Error fetching data : " + error.message);
         });
     }, []);
+    /* eslint-enable */
 
     const handlePlayerSelected = (player) => {
         setSelected(player);
 
         if (onPlayerChange) {
-            onPlayerChange(player.id);
+            onPlayerChange(player);
         }
     };
 
@@ -32,9 +35,9 @@ export default function SelectPlayer({ onPlayerChange, label }) {
         <Listbox value={selected} onChange={handlePlayerSelected}>
         {({ open }) => (
           <>
-            <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">{label}</Listbox.Label>
+            <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900" htmlFor="playerListbox">{label}</Listbox.Label>
             <div className="relative mt-2">
-              <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <Listbox.Button  id="playerListbox"  className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 <span className="block truncate">{selected?.name ? selected.name : ""}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                   <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />

@@ -81,6 +81,8 @@ router.get('/', async (req, res) => {
  *                     type: integer
  *                   losses:
  *                     type: integer
+ *                   ratio:
+ *                     type: integer
  *                   goalsFor:
  *                     type: integer
  *                   goalsAgainst:
@@ -122,17 +124,22 @@ router.get('/stats', async (req, res) => {
             const goalsAgainst = gamesAsPlayer1.reduce((acc, game) => acc + game.player2Score, 0) +
                                  gamesAsPlayer2.reduce((acc, game) => acc + game.player1Score, 0);
 
+            const ratio = totalGames === 0 ? 0 : Number(((winsAsPlayer1 + winsAsPlayer2) / totalGames).toFixed(2)); ;
+
             return {
                 id: player.id,
                 name: player.name,
                 gamesPlayed: totalGames,
                 wins: winsAsPlayer1 + winsAsPlayer2,
                 losses: lossesAsPlayer1 + lossesAsPlayer2,
+                ratio,
                 goalsFor,
                 goalsAgainst,
                 goalsDifference: goalsFor - goalsAgainst
             };
         }));
+
+        playerStats.sort((a, b) => b.wins - a.wins);
 
         res.json(playerStats);
     } catch (err) {

@@ -80,24 +80,26 @@ describe('GET /players/stats', () => {
         expect(res.status).to.equal(200);
         expect(res.body).to.be.an('array').of.length(2);
         expect(res.body[0]).to.deep.equal({
-            id: 1,
-            name: 'Johny Does',
-            gamesPlayed: 3,
-            wins: 1,
-            losses: 2,
-            goalsFor: 6,
-            goalsAgainst: 8,
-            goalsDifference: -2
-        });
-        expect(res.body[1]).to.deep.equal({
             id: 2,
             name: 'Jany Doey',
             gamesPlayed: 3,
             wins: 2,
             losses: 1,
+            ratio: 0.67,
             goalsFor: 8,
             goalsAgainst: 6,
             goalsDifference: 2
+        });
+        expect(res.body[1]).to.deep.equal({
+            id: 1,
+            name: 'Johny Does',
+            gamesPlayed: 3,
+            wins: 1,
+            losses: 2,
+            ratio: 0.33,
+            goalsFor: 6,
+            goalsAgainst: 8,
+            goalsDifference: -2
         });        
     });
 
